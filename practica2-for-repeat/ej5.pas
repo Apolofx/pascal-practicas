@@ -3,13 +3,10 @@ var
 	maximo, minimo, total, num: Integer;
 begin
 	total:= 0;
+	maximo:=-1;
+	minimo:=32767;
 	repeat
 	read(num);
-		if (total = 0) then
-		begin
-			maximo := num;
-			minimo := num;
-		end;
 		total:= total + 1;
 		if (num > maximo) then maximo := num;
 		if (num < minimo) then minimo := num;

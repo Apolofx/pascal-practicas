@@ -1,6 +1,8 @@
 program ej3;
+type 
+	primer_decena = 1..10; 
 	var nombre, nombre_stop: String;
-	nota: Real;
+	nota: primer_decena;
 	nota_ocho, nota_siete: Integer;
 begin
 	nota_siete := 0;
