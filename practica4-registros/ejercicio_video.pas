@@ -1,33 +1,6 @@
 program ejercicio_video;
 
-procedure leerRegistro(var lugar:sitio);
-begin
-writeln('Ingrese el nombre del lugar');
-readln(lugar.nombre);
-writeln('Ingrese la provincia');
-readln(lugar.provincia);
-writeln('Ingrese la cantidad de actividades');
-readln(lugar.cant_actividades);
-writeln('Ingrese la cantidad de personas');
-readln(lugar.cant_personas);
-end;
 
-procedure actualizarMaximo(lugar:sitio; var max:maximo);
-begin
-  if (lugar.cant_actividades >= max.cantidad) then
-  begin
-    max.cantidad := lugar.cant_actividades;
-    max.nombre := lugar.nombre;
-  end;
-end;
-
-procedure actualizarVisitados(lugar:sitio; var masVisitados:integer);
-begin 
-
-  if (lugar.cant_personas > 20000) then begin
-    masVisitados := masVisitados + 1;
-  end;
-end;
 Type
 maximo = record
   cantidad: integer;
@@ -41,6 +14,42 @@ sitio = record
   cant_personas: integer;
 end;
 
+
+
+procedure leerRegistro(var lugar:sitio);
+begin
+  with lugar do begin
+    writeln('Ingrese el nombre del lugar');
+    readln(nombre);
+    if (nombre <> 'fin') then begin
+    writeln('Ingrese la provincia');
+    readln(provincia);
+    writeln('Ingrese la cantidad de actividades');
+    readln(cant_actividades);
+    writeln('Ingrese la cantidad de personas');
+    readln(cant_personas);
+    end;
+  end;
+end;
+
+procedure actualizarMaximo(cantAct:integer; nombre:string; var max:maximo);
+begin
+  if (cantAct >= max.cantidad) then
+  begin
+    max.cantidad := cantAct;
+    max.nombre := nombre;
+  end;
+end;
+
+procedure actualizarVisitados(cantPers:integer; var masVisitados:integer);
+begin 
+
+  if (cantPers > 20000) then begin
+    masVisitados := masVisitados + 1;
+  end;
+end;
+
+
 var
 maxActividades:maximo;
 lugar: sitio;
@@ -51,7 +60,8 @@ masVisitados:=0;
 maxActividades.cantidad:=-1;
 leerRegistro(lugar);
 while(lugar.nombre <> 'fin') do begin
-
+  actualizarMaximo(lugar.cant_actividades, lugar.nombre, maxActividades);
+  actualizarVisitados(lugar.cant_personas, masVisitados);
   leerRegistro(lugar);
 end;
 writeln('El sitio con mayor cantidad de actividades fue ', maxActividades.nombre);
